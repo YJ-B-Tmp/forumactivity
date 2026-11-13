@@ -1,0 +1,28 @@
+{{<layouts/main}}
+{{$content}}
+  <section class="hero">
+    <p class="eyebrow">Community</p>
+    <h1>Discussions</h1>
+    <p class="lede">Anyone can read. Log in to reply to a discussion or to any comment in it.</p>
+  </section>
+
+  <ul class="discussion-list">
+    {{#discussions}}
+      <li class="discussion-card">
+        <a href="/discussions/{{id}}">
+          <h2>{{title}}</h2>
+          <p>{{excerpt}}</p>
+          <p class="meta">
+            Started by <strong>{{author}}</strong> ·
+            <time datetime="{{created_iso}}">{{created_human}}</time> ·
+            {{comment_count}} {{#one_comment}}comment{{/one_comment}}{{^one_comment}}comments{{/one_comment}}
+          </p>
+        </a>
+      </li>
+    {{/discussions}}
+    {{^discussions}}
+      <li class="empty">No discussions yet. Load <code>database/schema.sql</code> to add the sample data.</li>
+    {{/discussions}}
+  </ul>
+{{/content}}
+{{/layouts/main}}

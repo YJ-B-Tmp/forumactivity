@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{page_title}} · {{app_name}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="/assets/css/forum.css">
+  <link rel="icon" href="/assets/img/mark.svg" type="image/svg+xml">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="palette-strip" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="brand" href="/">
+        <img src="/assets/img/mark.svg" alt="" width="34" height="34">
+        <span>{{app_name}}</span>
+      </a>
+      <nav class="site-nav" aria-label="Account">
+        <a href="/">Discussions</a>
+        {{#logged_in}}
+          <span class="whoami">Signed in as <strong>{{username}}</strong></span>
+          <form method="post" action="/logout" class="inline-form">
+            <input type="hidden" name="{{csrf_field}}" value="{{csrf_token}}">
+            <button type="submit" class="btn btn--quiet">Log out</button>
+          </form>
+        {{/logged_in}}
+        {{^logged_in}}
+          <a href="/login">Log in</a>
+          <a class="btn btn--primary" href="/register">Register</a>
+        {{/logged_in}}
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    {{#flashes}}
+      <p class="flash flash--{{type}}" role="status">{{message}}</p>
+    {{/flashes}}
+    {{$content}}{{/content}}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Nested Forum Lab · PHP, MySQL &amp; PDO · {{year}}</p>
+      <p class="swatches" aria-label="Theme palette">
+        <span class="sw sw--sage">Herbal Linen #8DAA7B</span>
+        <span class="sw sw--orchid">Dusty Orchid #B68AA8</span>
+        <span class="sw sw--terrace">Sage Terrace #9AAD6F</span>
+        <span class="sw sw--apricot">Velvet Apricot #F29A62</span>
+      </p>
+    </div>
+  </footer>
+  {{$scripts}}{{/scripts}}
+</body>
+</html>

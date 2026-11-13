@@ -1,0 +1,22 @@
+{{<layouts/main}}
+{{$content}}
+  <section class="auth-card">
+    <p class="eyebrow">Welcome back</p>
+    <h1>Log in</h1>
+    {{#errors.0}}
+      <div class="flash flash--error" role="alert">
+        <ul>{{#errors}}<li>{{.}}</li>{{/errors}}</ul>
+      </div>
+    {{/errors.0}}
+    <form method="post" action="/login" class="stack">
+      <input type="hidden" name="{{csrf_field}}" value="{{csrf_token}}">
+      <label for="username">Username</label>
+      <input id="username" name="username" value="{{old.username}}" required autocomplete="username">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required autocomplete="current-password">
+      <button type="submit" class="btn btn--primary">Log in</button>
+    </form>
+    <p class="switch">No account yet? <a href="/register">Register</a></p>
+  </section>
+{{/content}}
+{{/layouts/main}}

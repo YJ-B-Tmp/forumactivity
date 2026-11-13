@@ -1,0 +1,33 @@
+<li class="comment tone-{{tone}}" id="comment-{{id}}" data-depth="{{depth}}" data-reply-count="{{reply_count}}">
+  <article class="comment__card" aria-label="Comment by {{author}}, depth {{depth}}">
+    <header class="comment__head">
+      <img class="avatar" src="{{avatar_url}}" alt="" width="36" height="36">
+      <span class="comment__author">{{author}}</span>
+      <time class="comment__time" datetime="{{created_iso}}">{{created_human}}</time>
+      <span class="depth-badge">Depth {{depth}}</span>
+      {{#capped}}<span class="cap-note">indent capped at 8</span>{{/capped}}
+    </header>
+    <p class="comment__body">{{body}}</p>
+    <div class="comment__actions" data-toggle-slot>
+      {{#can_reply}}
+        <details class="reply-box">
+          <summary>Reply</summary>
+          <form method="post" action="/discussions/{{discussion_id}}/comments">
+            <input type="hidden" name="{{csrf_field}}" value="{{csrf_token}}">
+            <input type="hidden" name="parent_id" value="{{id}}">
+            <label for="reply-{{id}}">Reply to {{author}}</label>
+            <textarea id="reply-{{id}}" name="body" rows="2" maxlength="{{max_length}}" required></textarea>
+            <button type="submit" class="btn btn--primary btn--small">Post reply</button>
+          </form>
+        </details>
+      {{/can_reply}}
+    </div>
+  </article>
+  {{#has_children}}
+    <ol class="replies{{#children_indented}} replies--indented{{/children_indented}}" id="replies-{{id}}">
+      {{#children}}
+        {{> partials/comment}}
+      {{/children}}
+    </ol>
+  {{/has_children}}
+</li>

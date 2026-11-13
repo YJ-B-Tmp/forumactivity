@@ -1,0 +1,49 @@
+{{<layouts/main}}
+{{$content}}
+  <article class="discussion" aria-labelledby="discussion-title">
+    <p class="eyebrow">Discussion {{discussion.id}}</p>
+    <h1 id="discussion-title">{{discussion.title}}</h1>
+    <p class="discussion__body">{{discussion.body}}</p>
+    <p class="meta">
+      Opened by <strong>{{discussion.author}}</strong> ·
+      <time datetime="{{discussion.created_iso}}">{{discussion.created_human}}</time>
+    </p>
+  </article>
+
+  <section class="thread-section" aria-labelledby="replies-heading">
+    <div class="thread-head">
+      <h2 id="replies-heading">Replies</h2>
+      <p class="thread-stats">
+        {{comment_total}} comments · deepest reply at depth {{thread_height}} ·
+        indentation stops at depth {{indent_cap}}
+      </p>
+    </div>
+
+    {{#logged_in}}
+      <form class="compose" id="new-comment" method="post" action="/discussions/{{discussion.id}}/comments">
+        <input type="hidden" name="{{csrf_field}}" value="{{csrf_token}}">
+        <label for="new-comment-body">Add a top-level comment</label>
+        <textarea id="new-comment-body" name="body" rows="3" maxlength="{{max_length}}" required></textarea>
+        <button type="submit" class="btn btn--primary">Post comment</button>
+      </form>
+    {{/logged_in}}
+    {{^logged_in}}
+      <p class="guest-note"><a href="/login">Log in</a> or <a href="/register">register</a> to join the discussion.</p>
+    {{/logged_in}}
+
+    {{#has_comments}}
+      <ol class="thread">
+        {{#comments}}
+          {{> partials/comment}}
+        {{/comments}}
+      </ol>
+    {{/has_comments}}
+    {{^has_comments}}
+      <p class="empty">No replies yet.</p>
+    {{/has_comments}}
+  </section>
+{{/content}}
+{{$scripts}}
+  <script src="/assets/js/replies.js" defer></script>
+{{/scripts}}
+{{/layouts/main}}

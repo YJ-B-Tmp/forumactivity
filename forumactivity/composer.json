@@ -1,0 +1,22 @@
+{
+    "name": "auf-it/forum-refactor",
+    "description": "Nested forum replies lab: Bramus Router, Mustache templates and PDO data access.",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.2",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-mbstring": "*",
+        "bramus/router": "^1.6",
+        "mustache/mustache": "^3.0"
+    },
+    "autoload": {
+        "psr-4": { "App\\": "app/" }
+    },
+    "scripts": {
+        "serve": "php -S localhost:8000 -t public public/index.php",
+        "test": "php tests/run.php"
+    },
+    "config": { "sort-packages": true }
+}
